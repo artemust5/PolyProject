@@ -6,89 +6,80 @@ import javax.persistence.*;
 public class User{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "iduser")
     private Long iduser;
 
-    private String mail;
+   private String mail;
 
-    private String password;
+   private String password;
 
-    private Integer graduation_year;
+   private Integer graduation_year;
 
-    private String type;
+   private String type;
 
-    private String work;
+   private String work;
 
-    private String username;
+   private String username;
 
-    private String first_name;
+   private String first_name;
 
-    private String last_name;
+   private String last_name;
 
-    private String middle_name;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Integer getGraduation_year() {
-        return graduation_year;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getWork() {
-        return work;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public String getMiddle_name() {
-        return middle_name;
-    }
+   private String middle_name;
 
     public Long getIduser() {
         return iduser;
+    }
+
+    public void setIduser(Long iduser) {
+        this.iduser = iduser;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public Integer getGraduation_year() {
+        return graduation_year;
+    }
+
     public void setGraduation_year(Integer graduation_year) {
         this.graduation_year = graduation_year;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void setType(String type) {
         this.type = type;
     }
 
+    public String getWork() {
+        return work;
+    }
+
     public void setWork(String work) {
         this.work = work;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public void setMiddle_name(String middle_name) {
-        this.middle_name = middle_name;
-    }
-
-    public void setIduser(Long iduser) {
-        this.iduser = iduser;
     }
 
     public String getFirst_name() {
@@ -99,11 +90,19 @@ public class User{
         this.first_name = first_name;
     }
 
-    public String getMail() {
-        return mail;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getMiddle_name() {
+        return middle_name;
+    }
+
+    public void setMiddle_name(String middle_name) {
+        this.middle_name = middle_name;
     }
 }
