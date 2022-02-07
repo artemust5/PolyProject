@@ -6,8 +6,8 @@
 </head>
 <body>
   <div th:each="el : ${users} ">
-    <p th:text="${el.first_name}"/>
-    <p th:text="${el.last_name}"/>
+    <p th:text="${el.username}"/>
+    <p th:text="${el.password}"/>
   </div>
 </body>
 </html>
