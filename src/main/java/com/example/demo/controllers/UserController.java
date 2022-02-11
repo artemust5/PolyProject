@@ -14,28 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UserController {
 
-    @Autowired
-    UserRepository userRepository;
+    @GetMapping("/")
+    public String root(Model model) {
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
 
     @GetMapping("/user")
-    public String getUsers(Model model){
-
-        Iterable<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-
-        return "users";
-    }
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public String register(@ModelAttribute("student") User user, Model model) {
-        user.setFirstName(String.valueOf(user));
-        user.setMiddleName(String.valueOf(user));
-        user.setLastName(String.valueOf(user));
-        user.setEmail(String.valueOf(user));
-        user.setPassword(String.valueOf(user));
-        user.setUsername(String.valueOf(user));
-        user.setGraduationYear(Integer.valueOf(String.valueOf(user)));
-        user.setWork(String.valueOf(user));
-
-        return "welcome";
+    public String userIndex(Model model) {
+        return "user/index";
     }
 }

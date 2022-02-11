@@ -1,46 +1,78 @@
 package com.example.demo.Model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
-@Entity // This tells Hibernate to make a table out of this class
-public class User{
+@Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class User {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    private Long userID;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
 
-   private String email;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
-   private String password;
-
-   private Integer graduationYear;
-
-   private String type;
-
-   private String work;
-
-   private String username;
-
-   private String firstName;
-
-   private String lastName;
-
-   private String middleName;
-
-    public Long getUserID() {
-        return userID;
+    public User() {
     }
 
-    public void setUserID(Long iduser) {
-        this.userID = iduser;
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String mail) {
-        this.email = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -51,59 +83,23 @@ public class User{
         this.password = password;
     }
 
-    public Integer getGraduationYear() {
-        return graduationYear;
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
-    public void setGraduationYear(Integer graduation_year) {
-        this.graduationYear = graduation_year;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getWork() {
-        return work;
-    }
-
-    public void setWork(String work) {
-        this.work = work;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String first_name) {
-        this.firstName = first_name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String last_name) {
-        this.lastName = last_name;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middle_name) {
-        this.middleName = middle_name;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + "*********" + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
