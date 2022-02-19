@@ -1,31 +1,37 @@
-package com.example.demo.controllers;
+package com.example.demo.Controllers;
+
+
 
 import com.example.demo.Model.User;
 import com.example.demo.repo.UserRepository;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
 
-    @GetMapping("/")
-    public String root(Model model) {
-        return "index";
+    @Autowired
+    private UserRepository repository;
+
+    @Autowired
+    private UpdatableBCrypt bCryptPasswordEncoder;
+
+
+    @PostMapping("/")
+    public void home(@RequestBody User user){
+        repository.save(user);
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ModelAndView processRegister(@ModelAttribute("user") User userRegistrationObject) {
+        String encodedPassword = bCryptPasswordEncoder.hashpw(userRegistrationObject.getPassword(), BCrypt.gensalt());
+
+        User user = new User(userRegistrationObject.getEmail(), encodedPassword);
+        repository.save(user);
+        return new ModelAndView("redirect:/welcome");
     }
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
-    }
-
-    @GetMapping("/user")
-    public String userIndex(Model model) {
-        return "user/index";
-    }
 }
